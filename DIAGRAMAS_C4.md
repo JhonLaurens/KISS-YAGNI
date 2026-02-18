@@ -3,6 +3,7 @@
 Este documento presenta los diagramas C4 (Context, Container, Component) para comparar ambos diseños del sistema de reservas de salas.
 
 ## 📚 Índice
+
 - [Nivel 1: Diagrama de Contexto](#nivel-1-diagrama-de-contexto)
 - [Nivel 2: Diagrama de Contenedores](#nivel-2-diagrama-de-contenedores)
 - [Nivel 3: Diagrama de Componentes - Sobreingeniería](#nivel-3-diagrama-de-componentes---sobreingeniería)
@@ -20,13 +21,14 @@ C4Context
     title Diagrama de Contexto - Sistema de Reservas de Salas
 
     Person(usuario, "Usuario", "Empleado que necesita reservar salas de reuniones")
-    
+
     System(sistema_reservas, "Sistema de Reservas", "Permite gestionar reservas de salas de reuniones")
-    
+
     Rel(usuario, sistema_reservas, "Crea, consulta y cancela reservas")
 ```
 
 **Descripción:**
+
 - **Usuario**: Empleados de la empresa que necesitan reservar salas
 - **Sistema de Reservas**: Aplicación para gestionar las reservas de manera simple y eficiente
 
@@ -41,16 +43,17 @@ C4Container
     title Diagrama de Contenedores - Sistema de Reservas
 
     Person(usuario, "Usuario", "Empleado")
-    
+
     Container(app, "Aplicación de Reservas", "Python", "Sistema de gestión de reservas de salas")
-    
+
     ContainerDb(bd, "Base de Datos", "In-Memory", "Almacena reservas y salas (simulado)")
-    
+
     Rel(usuario, app, "Usa", "CLI/API")
     Rel(app, bd, "Lee/Escribe", "Datos de reservas")
 ```
 
 **Descripción:**
+
 - **Aplicación**: Sistema Python que maneja la lógica de negocio
 - **Base de Datos**: Almacenamiento en memoria (para la demo)
 
@@ -60,71 +63,76 @@ C4Container
 
 ### ❌ Diseño Sobreingenierizado (Anti-Patrón)
 
+**Arquitectura completa sobreingenierizada:**
+
+```mermaid
+graph LR
+    A["👤 Usuario"]
+    B["Interfaz"]
+    C["ReservMgr"]
+    D["Reserva"]
+    E["Sala"]
+    F["BD"]
+
+    A -->|usa| B
+    B -->|gestiona| C
+    C -->|crea| D
+    C -->|usa| E
+    C -->|persiste| F
+
+    style A fill:#1976d2,color:#fff,stroke:#fff
+    style B fill:#f57f17,color:#fff,stroke:#fff
+    style C fill:#f57f17,color:#fff,stroke:#fff
+    style D fill:#f57f17,color:#fff,stroke:#fff
+    style E fill:#f57f17,color:#fff,stroke:#fff
+    style F fill:#f57f17,color:#fff,stroke:#fff
+```
+
+**Capa de Servicios - Sobreingenierizada:**
+
 ```mermaid
 graph TB
-    subgraph "🚫 DISEÑO SOBREINGENIERIZADO - 8+ Componentes"
-        User[👤 Usuario]
-        
-        subgraph "Capa de Presentación"
-            UI[InterfazUsuario]
-        end
-        
-        subgraph "Capa de Servicio - INNECESARIA"
-            INotif[INotificationService<br/>INTERFACE ABSTRACTA]
-            EmailServ[EmailNotificationService]
-            SMSServ[SMSNotificationService<br/>❌ NO REQUERIDO]
-            PushServ[PushNotificationService<br/>❌ NO REQUERIDO]
-        end
-        
-        subgraph "Capa de Negocio"
-            ReservaMgr[ReservationManager]
-            Reserva[Reservation]
-            Sala[MeetingRoom]
-        end
-        
-        subgraph "Servicios Adicionales INNECESARIOS"
-            PaymentGateway[PaymentGateway<br/>❌ NO REQUERIDO]
-            AuditLogger[AuditLogger<br/>❌ NO REQUERIDO]
-        end
-        
-        subgraph "Persistencia"
-            DB[(Base de Datos)]
-        end
-    end
-    
-    User --> UI
-    UI --> ReservaMgr
-    ReservaMgr --> INotif
-    INotif -.-> EmailServ
-    INotif -.-> SMSServ
-    INotif -.-> PushServ
-    ReservaMgr --> Reserva
-    ReservaMgr --> Sala
-    ReservaMgr --> PaymentGateway
-    ReservaMgr --> AuditLogger
-    ReservaMgr --> DB
-    
-    style INotif fill:#ff9999
-    style SMSServ fill:#ffcccc
-    style PushServ fill:#ffcccc
-    style PaymentGateway fill:#ffcccc
-    style AuditLogger fill:#ffcccc
+    A["INotificationService<br/>(Interface)"]
+    B["EmailService"]
+    C["SMSService ❌"]
+    D["PushService ❌"]
+
+    A --> B
+    A --> C
+    A --> D
+
+    style A fill:#c62828,color:#fff,stroke:#fff
+    style C fill:#ff5252,color:#fff,stroke:#fff
+    style D fill:#ff5252,color:#fff,stroke:#fff
+    style B fill:#ffa726,color:#000,stroke:#fff
+```
+
+**Servicios Adicionales Innecesarios:**
+
+```mermaid
+graph LR
+    A["PaymentGateway ❌<br/>(Gratis)"]
+    B["AuditLogger ❌<br/>(Sin compliance)"]
+
+    style A fill:#ff5252,color:#fff,stroke:#fff
+    style B fill:#ff5252,color:#fff,stroke:#fff
 ```
 
 **Problemas identificados:**
-- ❌ **8+ clases** cuando solo se necesitan 4
-- ❌ **3 canales de notificación** cuando solo se usa email
-- ❌ **Interface abstracta** sin justificación real
-- ❌ **PaymentGateway** para algo que es gratis
+
+- ❌ **11 clases** cuando solo se necesitan 4
+- ❌ **3 canales de notificación** (Solo Email es requisito)
+- ❌ **Interface abstracta** sin justificación
+- ❌ **PaymentGateway** innecesario (reservas gratis)
 - ❌ **AuditLogger** sin requisito de compliance
 - ❌ **Alta complejidad** para funcionalidad simple
 
 **Métricas:**
+
 - **Clases**: 11
 - **Dependencias**: 15+
-- **Complejidad ciclomática**: Alta
-- **Tiempo de desarrollo**: ~3 semanas
-- **Mantenibilidad**: Baja
+- **Líneas código**: ~500
+- **Tiempo desarrollo**: 3 semanas
 
 ---
 
@@ -132,55 +140,55 @@ graph TB
 
 ### ✅ Diseño Simple (Patrón Correcto)
 
+**Arquitectura simple y clara:**
+
 ```mermaid
-graph TB
-    subgraph "✅ DISEÑO SIMPLE KISS+YAGNI - 4 Componentes"
-        User[👤 Usuario]
-        
-        subgraph "Capa de Presentación"
-            Sistema[Sistema de Reservas]
-        end
-        
-        subgraph "Capa de Negocio"
-            ReservaMgr[GestorReservas]
-            Reserva[Reserva]
-            Sala[Sala]
-            Email[NotificadorEmail]
-        end
-        
-        subgraph "Persistencia"
-            DB[(Base de Datos)]
-        end
-    end
-    
-    User --> Sistema
-    Sistema --> ReservaMgr
-    ReservaMgr --> Reserva
-    ReservaMgr --> Sala
-    ReservaMgr --> Email
-    ReservaMgr --> DB
-    
-    style Sistema fill:#99ff99
-    style ReservaMgr fill:#99ff99
-    style Reserva fill:#99ff99
-    style Sala fill:#99ff99
-    style Email fill:#99ff99
+graph LR
+    A["👤 Usuario"]
+    B["Sistema"]
+    C["GestorReserv"]
+    D["Reserva"]
+    E["Sala"]
+    F["Email"]
+    G["BD"]
+
+    A -->|usa| B
+    B -->|gestiona| C
+    C -->|crea| D
+    C -->|usa| E
+    C -->|notifica| F
+    C -->|persiste| G
+
+    style A fill:#1976d2,color:#fff,stroke:#fff
+    style B fill:#2e7d32,color:#fff,stroke:#fff
+    style C fill:#2e7d32,color:#fff,stroke:#fff
+    style D fill:#2e7d32,color:#fff,stroke:#fff
+    style E fill:#2e7d32,color:#fff,stroke:#fff
+    style F fill:#2e7d32,color:#fff,stroke:#fff
+    style G fill:#2e7d32,color:#fff,stroke:#fff
 ```
 
-**Beneficios:**
+**Comparación de complejidad:**
+
+```mermaid
+graph LR
+    A["Sobreingeniería<br/>11 Clases<br/>15+ Dependencias<br/>500 líneas<br/>3 semanas"]
+    B["KISS+YAGNI<br/>4 Clases<br/>5 Dependencias<br/>200 líneas<br/>1 semana"]
+
+    style A fill:#c62828,color:#fff,stroke:#fff
+    style B fill:#2e7d32,color:#fff,stroke:#fff
+
+    A -->|vs| B
+```
+
+**Beneficios del diseño KISS+YAGNI:**
+
 - ✅ **Solo 4 clases** necesarias
-- ✅ **1 canal de notificación** (email) según requisito
+- ✅ **1 canal de notificación** (Email según requisito)
 - ✅ **Sin abstracciones innecesarias**
 - ✅ **Sin funcionalidades especulativas**
-- ✅ **Código simple y directo**
-- ✅ **Fácil de mantener y extender**
-
-**Métricas:**
-- **Clases**: 4
-- **Dependencias**: 5
-- **Complejidad ciclomática**: Baja
-- **Tiempo de desarrollo**: ~1 semana
-- **Mantenibilidad**: Alta
+- ✅ **Código simple y mantenible**
+- ✅ \*\*Desarrollo rápido y eficiente
 
 ---
 
@@ -188,43 +196,42 @@ graph TB
 
 ### 📊 Tabla Comparativa
 
-| Aspecto | Sobreingeniería ❌ | KISS+YAGNI ✅ |
-|---------|-------------------|---------------|
-| **Componentes** | 11 clases | 4 clases |
-| **Interfaces abstractas** | 1 (innecesaria) | 0 |
-| **Canales notificación** | 3 (Email, SMS, Push) | 1 (Email) |
-| **Servicios extras** | PaymentGateway, AuditLogger | Ninguno |
-| **Dependencias** | 15+ | 5 |
-| **Líneas de código** | ~500 líneas | ~200 líneas |
-| **Tiempo desarrollo** | 3 semanas | 1 semana |
-| **Bugs potenciales** | Alto | Bajo |
-| **Facilidad mantenimiento** | Baja | Alta |
-| **Extensibilidad futura** | Difícil (mucho acoplamiento) | Fácil (bajo acoplamiento) |
+| Aspecto                     | Sobreingeniería ❌           | KISS+YAGNI ✅             |
+| --------------------------- | ---------------------------- | ------------------------- |
+| **Componentes**             | 11 clases                    | 4 clases                  |
+| **Interfaces abstractas**   | 1 (innecesaria)              | 0                         |
+| **Canales notificación**    | 3 (Email, SMS, Push)         | 1 (Email)                 |
+| **Servicios extras**        | PaymentGateway, AuditLogger  | Ninguno                   |
+| **Dependencias**            | 15+                          | 5                         |
+| **Líneas de código**        | ~500 líneas                  | ~200 líneas               |
+| **Tiempo desarrollo**       | 3 semanas                    | 1 semana                  |
+| **Bugs potenciales**        | Alto                         | Bajo                      |
+| **Facilidad mantenimiento** | Baja                         | Alta                      |
+| **Extensibilidad futura**   | Difícil (mucho acoplamiento) | Fácil (bajo acoplamiento) |
 
 ### 🎯 Diagrama de Flujo de Complejidad
 
 ```mermaid
 graph LR
-    subgraph "Evolución del Diseño"
-        A[Requisitos<br/>Simples] --> B{Enfoque de Diseño}
-        B -->|Sobreingeniería| C[8+ Clases<br/>Alta Complejidad<br/>❌]
-        B -->|KISS+YAGNI| D[4 Clases<br/>Baja Complejidad<br/>✅]
-        
-        C --> E[Mantenimiento<br/>Costoso]
-        D --> F[Mantenimiento<br/>Fácil]
-        
-        E --> G[Extensión<br/>Difícil]
-        F --> H[Extensión<br/>Simple]
-    end
-    
-    style A fill:#e1f5ff
-    style C fill:#ffcccc
-    style D fill:#ccffcc
-    style E fill:#ff9999
-    style F fill:#99ff99
-    style G fill:#ff6666
-    style H fill:#66ff66
+    A["Requisitos<br/>Simples"] -->|Sobreingeniería| C["❌ 8+ Clases<br/>Alta complejidad"]
+    A -->|KISS+YAGNI| D["✅ 4 Clases<br/>Baja complejidad"]
+
+    C --> E["❌ Mantenimiento<br/>Costoso"]
+    D --> F["✅ Mantenimiento<br/>Fácil"]
+
+    E --> G["❌ Extensión<br/>Difícil"]
+    F --> H["✅ Extensión<br/>Simple"]
+
+    style A fill:#0d47a1,color:#fff,stroke:#fff
+    style C fill:#c62828,color:#fff,stroke:#fff
+    style D fill:#2e7d32,color:#fff,stroke:#fff
+    style E fill:#c62828,color:#fff,stroke:#fff
+    style F fill:#2e7d32,color:#fff,stroke:#fff
+    style G fill:#d32f2f,color:#fff,stroke:#fff
+    style H fill:#388e3c,color:#fff,stroke:#fff
 ```
+
+**Conclusión:** La complejidad innecesaria genera problemas cascada
 
 ---
 
@@ -233,18 +240,22 @@ graph LR
 ### Capa de Notificaciones
 
 **Sobreingeniería:**
+
 ```
 INotificationService (Interface abstracta)
 ├── EmailNotificationService
 ├── SMSNotificationService ❌ NO REQUERIDO
 └── PushNotificationService ❌ NO REQUERIDO
 ```
+
 **Problemas:** Abstracción prematura, canales no solicitados
 
 **KISS+YAGNI:**
+
 ```
 NotificadorEmail (Clase concreta)
 ```
+
 **Ventajas:** Solo lo necesario, sin abstracciones innecesarias
 
 ---
@@ -252,18 +263,22 @@ NotificadorEmail (Clase concreta)
 ### Capa de Servicios Adicionales
 
 **Sobreingeniería:**
+
 ```
 PaymentGateway ❌ NO REQUERIDO
 ├── Integración con pasarela de pago
 ├── Validación de tarjetas
 └── Procesamiento de transacciones
 ```
+
 **Problemas:** Las salas son gratis, no hay requisito de pago
 
 **KISS+YAGNI:**
+
 ```
 (No existe - no es necesario)
 ```
+
 **Ventajas:** No se desarrolla lo que no se necesita
 
 ---
@@ -273,35 +288,39 @@ PaymentGateway ❌ NO REQUERIDO
 ### KISS (Keep It Simple, Stupid)
 
 ```mermaid
-graph TD
-    A[Problema Simple] --> B{Aplicar KISS?}
-    B -->|SÍ ✅| C[Solución Simple<br/>Fácil de entender<br/>Fácil de mantener]
-    B -->|NO ❌| D[Solución Compleja<br/>Difícil de entender<br/>Difícil de mantener]
-    
-    C --> E[Éxito del Proyecto]
-    D --> F[Problemas Futuros]
-    
-    style C fill:#99ff99
-    style D fill:#ff9999
-    style E fill:#66ff66
-    style F fill:#ff6666
+graph LR
+    A["Problema"] -->|Aplicar KISS| B["✅ Solución Simple<br/>Fácil de mantener"]
+    A -->|Ignorar KISS| C["❌ Solución Compleja<br/>Difícil de mantener"]
+
+    B --> D["✅ Éxito"]
+    C --> E["❌ Problemas"]
+
+    style B fill:#2e7d32,color:#fff,stroke:#fff
+    style C fill:#c62828,color:#fff,stroke:#fff
+    style D fill:#388e3c,color:#fff,stroke:#fff
+    style E fill:#d32f2f,color:#fff,stroke:#fff
 ```
 
 ### YAGNI (You Aren't Gonna Need It)
 
 ```mermaid
-graph TD
-    A[Nueva Funcionalidad] --> B{¿Es requerida HOY?}
-    B -->|SÍ| C[Implementar ✅]
-    B -->|NO| D{¿Requisito documentado?}
-    D -->|SÍ| E{¿2-3 casos de uso?}
-    D -->|NO| F[NO implementar ❌<br/>YAGNI]
-    E -->|SÍ| G[Considerar implementar]
-    E -->|NO| F
-    
-    style C fill:#99ff99
-    style F fill:#ffcccc
-    style G fill:#ffffcc
+graph LR
+    A["¿Función nueva?"]
+    B{"¿Es requisito<br/>documentado HOY?"}
+    C{"¿Tiene 2-3<br/>casos de uso?"}
+    D["✅ Implementar"]
+    E["❌ NO implementar<br/>(YAGNI)"]
+    F["❓ Considerar"]
+
+    A --> B
+    B -->|SÍ| C
+    B -->|NO| E
+    C -->|SÍ| F
+    C -->|NO| E
+
+    style D fill:#2e7d32,color:#fff,stroke:#fff
+    style E fill:#ff5252,color:#fff,stroke:#fff
+    style F fill:#ffa726,color:#000,stroke:#fff
 ```
 
 ---
@@ -311,6 +330,7 @@ graph TD
 ### Cuándo usar cada enfoque:
 
 **Diseño Simple (KISS+YAGNI) ✅**
+
 - ✅ Requisitos claros y acotados
 - ✅ MVP o prototipos
 - ✅ Proyectos pequeños/medianos
@@ -318,6 +338,7 @@ graph TD
 - ✅ Presupuesto/tiempo limitado
 
 **Diseño Complejo (Solo si es necesario) ⚠️**
+
 - ⚠️ Requisitos de escalabilidad probados
 - ⚠️ Múltiples clientes con necesidades diferentes
 - ⚠️ Regulaciones estrictas (compliance)
