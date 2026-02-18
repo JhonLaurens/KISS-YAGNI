@@ -51,22 +51,10 @@ python ejecutar_presentacion.py
 - Puntos de discusión integrados
 - Ideal para presentaciones en vivo con audiencia
 
-**OPCIÓN 3: Demo Completa (Todo en Uno)**
-
-```bash
-# Ejecuta ambos diseños en secuencia sin pausas
-python demo_kiss_yagni.py
-```
-
-**Ventajas:**
-- Demostración rápida y continua
-- No requiere intervención
-- Ideal para revisiones rápidas
 
 ### Duración
 - **Opción 1 (Separados):** ~10 segundos por archivo = 20 segundos total
 - **Opción 2 (Presentación Interactiva):** Variable (con pausas para discusión)
-- **Opción 3 (Todo en uno):** ~20 segundos continuos
 
 ## 📊 Estructura de la Demo
 
@@ -156,12 +144,9 @@ Agrega abstracciones y funcionalidades SOLO cuando:
 kiss-yagni/
 ├── demo_1_sobreingenieria.py   # ❌ Diseño sobreingenierizado (Anti-patrón)
 ├── demo_2_simple.py            # ✅ Diseño simple KISS+YAGNI (Patrón correcto)
-├── demo_kiss_yagni.py          # 🎯 Script completo (ambos diseños en uno)
-├── ejecutar_presentacion.py    # 🎤 Script de presentación interactiva con pausas
+├── ejecutar_presentacion.py    # 🎤 Script de presentación interactiva con POO
 ├── KISS_YAGNI_actividad.md     # 📄 Documento de la actividad completa
-├── README_DEMO.md              # 📖 Este archivo (guía de uso)
-├── actividad.md                # 📋 Resumen de todos los principios
-└── Conceptos generales de arquitectura de software.md
+└── README_DEMO.md              # 📖 Este archivo (guía de uso)
 ```
 
 ### 📄 Descripción de Scripts Python
@@ -170,8 +155,17 @@ kiss-yagni/
 |---------|-------------|--------|---------------|
 | `demo_1_sobreingenieria.py` | Muestra diseño complejo innecesario con 8+ clases, interfaces abstractas, y funcionalidades no requeridas (pagos, SMS, auditoría) | ~16 KB | Ejecución individual del anti-patrón |
 | `demo_2_simple.py` | Implementación simple aplicando KISS+YAGNI con solo las 4 clases necesarias | ~17 KB | Ejecución individual del patrón correcto |
-| `demo_kiss_yagni.py` | Combina ambos diseños en una sola ejecución para comparación directa | ~24 KB | Demo rápida sin pausas |
-| `ejecutar_presentacion.py` | Script guiado que ejecuta ambas demos con pausas, mensajes para el presentador y puntos de discusión | ~6 KB | **⭐ Recomendado para exposiciones** |
+| `ejecutar_presentacion.py` | Script guiado que ejecuta ambas demos con pausas, mensajes para el presentador y puntos de discusión. **Aplica POO**: 3 clases con responsabilidades separadas, comentarios en español | ~10 KB | **⭐ Recomendado para exposiciones** |
+
+### 🎯 Aplicación de POO
+
+Todos los scripts aplican **Programación Orientada a Objetos**:
+- ✅ **Clases bien definidas** con responsabilidades claras (SRP)
+- ✅ **Encapsulamiento** de lógica relacionada
+- ✅ **Comentarios en español** completos
+- ✅ **Docstrings** para todas las clases y métodos
+- ✅ **Type hints** (Python 3.7+) para mejor legibilidad
+- ✅ **Manejo de errores** apropiado
 
 ## 🎬 Consejos para la Presentación
 
@@ -203,23 +197,18 @@ kiss-yagni/
 3. Responde preguntas del público
 4. Discute las preguntas al final del output
 
-### Con Demo Completa (Alternativa)
+### Con Presentación Interactiva (ejecutar_presentacion.py)
 
-**Antes de Ejecutar:**
-1. Abre el script en un editor
-2. Explica la estructura de dos partes
-3. Menciona que verán output en tiempo real
+**Ventajas:**
+- Pausas automáticas para discusión
+- Mensajes guiados integrados
+- No requiere intervención manual
 
 **Durante la Ejecución:**
-1. Deja correr hasta que termine la Parte 1
-2. Pausa para discutir problemas identificados
-3. Continúa con la Parte 2
-4. Destaca la tabla de comparación final
-
-**Después de Ejecutar:**
-1. Scroll hacia arriba para revisar secciones clave
-2. Compara las salidas de ambas partes
-3. Responde preguntas del público
+1. El script te guiará con mensajes claros
+2. Presiona ENTER en cada pausa
+3. Aprovecha los puntos de discusión sugeridos
+4. La conclusión se muestra automáticamente al final
 
 ## 🔧 Extensiones Opcionales
 
