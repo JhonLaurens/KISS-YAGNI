@@ -4,6 +4,18 @@
 
 Este proyecto demuestra los principios **KISS (Keep It Simple, Stupid)** y **YAGNI (You Aren't Gonna Need It)** mediante una comparación práctica entre dos implementaciones del mismo sistema de reservas de salas de reuniones.
 
+## 📊 Diagramas C4
+
+**[Ver diagramas completos →](DIAGRAMAS_C4.md)**
+
+Este proyecto incluye diagramas C4 detallados que ilustran visualmente:
+- 🏗️ **Diagrama de Contexto**: Vista general del sistema
+- 📦 **Diagrama de Contenedores**: Arquitectura de alto nivel
+- 🔧 **Diagrama de Componentes**: Comparación detallada entre diseño sobreingenierizado vs. simple
+- 📈 **Análisis comparativo**: Métricas y flujos de complejidad
+
+Los diagramas usan **Mermaid** y se renderizan automáticamente en GitHub.
+
 ## 🎭 Historia de Contexto
 
 **"El Caso de TechCorp: Cuando Menos es Más"**
@@ -145,8 +157,9 @@ kiss-yagni/
 ├── demo_1_sobreingenieria.py   # ❌ Diseño sobreingenierizado (Anti-patrón)
 ├── demo_2_simple.py            # ✅ Diseño simple KISS+YAGNI (Patrón correcto)
 ├── ejecutar_presentacion.py    # 🎤 Script de presentación interactiva con POO
+├── DIAGRAMAS_C4.md             # 📊 Diagramas C4 (Context, Container, Component)
 ├── KISS_YAGNI_actividad.md     # 📄 Documento de la actividad completa
-└── README_DEMO.md              # 📖 Este archivo (guía de uso)
+└── README.md                   # 📖 Este archivo (guía de uso)
 ```
 
 ### 📄 Descripción de Scripts Python
