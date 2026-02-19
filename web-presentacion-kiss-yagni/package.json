@@ -1,0 +1,34 @@
+{
+  "name": "kiss-yagni-presentacion",
+  "version": "1.0.0",
+  "description": "Presentación académica interactiva sobre principios KISS y YAGNI - ITM Arquitectura de Software I",
+  "type": "module",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "preview": "python start.py"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JhonLaurens/KISS-YAGNI.git"
+  },
+  "keywords": [
+    "KISS",
+    "YAGNI",
+    "software-architecture",
+    "presentation",
+    "education",
+    "ITM",
+    "vanilla-javascript"
+  ],
+  "authors": [
+    "Jhon Dayron Jaramillo Laurens",
+    "Angie Paola Meneses Calderon",
+    "Luis Fernando Zapata Castaño"
+  ],
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/JhonLaurens/KISS-YAGNI/issues"
+  },
+  "homepage": "https://github.com/JhonLaurens/KISS-YAGNI#readme",
+  "devDependencies": {}
+}

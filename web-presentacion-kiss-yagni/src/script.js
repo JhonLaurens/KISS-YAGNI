@@ -6,7 +6,7 @@
   "use strict";
 
   // ===== CONFIG =====
-  const TOTAL_SLIDES = 8;
+  const TOTAL_SLIDES = 9;
   let currentIndex = 0;
 
   const slidesContainer = document.getElementById("slidesContainer");
@@ -25,6 +25,7 @@
     "Laboratorio",
     "Dashboard",
     "Evaluación",
+    "Reto",
     "Equipo",
   ];
 
@@ -35,6 +36,7 @@
   setupRevealAnimations();
   setupKeyboardNav();
   setupButtonNav();
+  setupQuiz();
 
   // ===== NAV DOTS =====
   function createNavDots() {
@@ -156,6 +158,46 @@
   function setupButtonNav() {
     prevBtn.addEventListener("click", prevSlide);
     nextBtn.addEventListener("click", nextSlide);
+  }
+
+  // ===== QUIZ INTERACTION =====
+  function setupQuiz() {
+    document.querySelectorAll(".quiz-card").forEach((card) => {
+      const feedback = card.querySelector(".quiz-feedback");
+      const options = card.querySelectorAll(".quiz-option");
+
+      options.forEach((option) => {
+        option.addEventListener("click", () => {
+          if (option.disabled) return;
+          const isCorrect = option.dataset.correct === "true";
+          const message = option.dataset.feedback;
+
+          options.forEach((btn) => {
+            btn.disabled = true;
+            btn.classList.remove("is-correct", "is-incorrect");
+          });
+
+          if (isCorrect) {
+            option.classList.add("is-correct");
+            feedback.textContent =
+              message || "Correcto. Buena aplicacion de KISS/YAGNI.";
+            feedback.classList.remove("is-incorrect");
+            feedback.classList.add("is-correct");
+          } else {
+            option.classList.add("is-incorrect");
+            const correct = card.querySelector(
+              '.quiz-option[data-correct="true"]',
+            );
+            if (correct) correct.classList.add("is-correct");
+            feedback.textContent =
+              message ||
+              "Incorrecto. Revisa el principio y vuelve a intentarlo en clase.";
+            feedback.classList.remove("is-correct");
+            feedback.classList.add("is-incorrect");
+          }
+        });
+      });
+    });
   }
 
   // ===== SIMULATOR =====
