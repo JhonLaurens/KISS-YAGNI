@@ -1,0 +1,1092 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Presentación académica sobre principios KISS y YAGNI - Arquitectura de Software I - ITM"
+    />
+    <meta name="author" content="Jaramillo, Meneses, Zapata" />
+    <meta
+      name="keywords"
+      content="KISS, YAGNI, Arquitectura Software, ITM, Principios de Diseño"
+    />
+    <title>KISS & YAGNI | ITM — Arquitectura de Software I</title>
+    <link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Animated Background Orbs -->
+    <div class="bg-animated" aria-hidden="true">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div
+      class="progress-bar"
+      id="progressBar"
+      role="progressbar"
+      aria-label="Progreso de la presentación"
+    ></div>
+
+    <!-- Navigation Dots -->
+    <nav class="nav-dots" id="navDots" aria-label="Navegación de slides"></nav>
+
+    <!-- Bottom Navigation Controls -->
+    <div
+      class="nav-controls"
+      role="navigation"
+      aria-label="Controles de navegación"
+    >
+      <button class="nav-btn" id="prevBtn" aria-label="Slide anterior">
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="11 14 5 8 11 2" />
+        </svg>
+        Anterior
+      </button>
+      <div class="slide-counter" aria-live="polite">
+        <span id="currentSlide">1</span> / <span id="totalSlides">8</span>
+      </div>
+      <button class="nav-btn" id="nextBtn" aria-label="Slide siguiente">
+        Siguiente
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="5 2 11 8 5 14" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- ========== SLIDES ========== -->
+    <main class="slides-container" id="slidesContainer">
+      <!-- SLIDE 0: HERO -->
+      <section class="slide" id="slide-0" aria-label="Inicio">
+        <div class="hero-content">
+          <img
+            src="../assets/img/itm_logo.png"
+            alt="Logo Instituto Tecnológico Metropolitano"
+            class="hero-logo fade-in"
+            loading="eager"
+          />
+          <div class="badge badge-primary fade-in delay-1">
+            Arquitectura de Software I
+          </div>
+          <h1 class="hero-title fade-in delay-2">
+            <span class="text-gradient">KISS & YAGNI</span><br />
+            <span class="text-light">El Arte de la Simplicidad</span>
+          </h1>
+          <p class="hero-subtitle fade-in delay-3">
+            Transformando la complejidad innecesaria en código elegante y
+            mantenible.<br />
+            <strong>Menos es más, cuando menos es suficiente.</strong>
+          </p>
+          <div class="hero-stats fade-in delay-4">
+            <div class="stat-box">
+              <div class="stat-value">-70%</div>
+              <div class="stat-label">Código</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">+400%</div>
+              <div class="stat-label">Mantenibilidad</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">3.5x</div>
+              <div class="stat-label">Velocidad</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value">-81%</div>
+              <div class="stat-label">Bugs</div>
+            </div>
+          </div>
+          <div class="hero-cta fade-in delay-5">
+            <button onclick="goToSlide(1)" class="btn btn-primary">
+              Explorar Principios
+              <svg
+                width="18"
+                height="18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="margin-left: 0.5rem"
+              >
+                <line x1="5" y1="9" x2="15" y2="9" />
+                <polyline points="10 4 15 9 10 14" />
+              </svg>
+            </button>
+            <button onclick="goToSlide(3)" class="btn btn-outline">
+              Ver Comparativa
+            </button>
+          </div>
+          <div class="hero-team fade-in delay-6">
+            <div class="avatar-group">
+              <div class="avatar" title="Jhon Jaramillo">JJ</div>
+              <div class="avatar" title="Angie Meneses">AM</div>
+              <div class="avatar" title="Luis Zapata">LZ</div>
+            </div>
+            <div class="team-info-hero">
+              <div class="team-names">
+                Jaramillo Laurens Jhon Dayron · Meneses Calderon Angie Paola ·
+                Zapata Castaño Luis Fernando
+              </div>
+              <div class="team-emails">
+                jhonjaramillo120326@correo.itm.edu.co ·
+                angiemeneses271066@correo.itm.edu.co ·
+                luiszapata73404@correo.itm.edu.co
+              </div>
+              <div class="team-meta">
+                Grupo 3 · Docente: Johnathan M. Calle G. · 2026
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-indicator fade-in delay-7" aria-hidden="true">
+          <div class="scroll-arrow"></div>
+        </div>
+      </section>
+
+      <!-- SLIDE 1: PRINCIPLES -->
+      <section class="slide" id="slide-1" aria-label="Principios">
+        <div class="section-header reveal">
+          <span class="section-tag">Fundamentos</span>
+          <h2 class="section-title">Principios de Diseño Esencial</h2>
+          <p class="section-subtitle">
+            Dos pilares que transforman la forma en que pensamos el software
+          </p>
+        </div>
+
+        <div class="principles-grid">
+          <!-- KISS -->
+          <div class="principle-card card-kiss reveal">
+            <div class="principle-icon">
+              <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                <rect
+                  x="8"
+                  y="8"
+                  width="32"
+                  height="32"
+                  rx="16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M24 16v16m-8-8h16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </div>
+            <div class="principle-number">01</div>
+            <h3 class="principle-title">Keep It Simple, Stupid</h3>
+            <p class="principle-desc">
+              La simplicidad es la máxima sofisticación. Un sistema debe ser tan
+              simple como sea posible, pero no más simple. Eliminar fricción
+              cognitiva reduce errores y acelera el desarrollo.
+            </p>
+            <div class="principle-highlights">
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Reduce complejidad ciclomática</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Mejora legibilidad del código</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Facilita el mantenimiento</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Facilita el debugging</div>
+              </div>
+            </div>
+            <blockquote class="principle-quote">
+              "La perfección se alcanza, no cuando no hay nada más que añadir,
+              sino cuando no hay nada más que quitar."
+              <cite>— Antoine de Saint-Exupéry</cite>
+            </blockquote>
+          </div>
+
+          <!-- YAGNI -->
+          <div class="principle-card card-yagni reveal">
+            <div class="principle-icon">
+              <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                <circle
+                  cx="24"
+                  cy="24"
+                  r="16"
+                  stroke="currentColor"
+                  stroke-width="2"
+                />
+                <path
+                  d="M18 24l6 6 12-12"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div class="principle-number">02</div>
+            <h3 class="principle-title">You Aren't Gonna Need It</h3>
+            <p class="principle-desc">
+              No implementes funcionalidad hasta que sea absolutamente
+              necesaria. La especulación sobre necesidades futuras genera código
+              muerto y deuda técnica.
+            </p>
+            <div class="principle-highlights">
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Evita sobreingeniería</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Reduce tiempo de desarrollo</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Elimina código especulativo</div>
+              </div>
+              <div class="highlight-item">
+                <div class="highlight-icon">✓</div>
+                <div>Menor deuda técnica</div>
+              </div>
+            </div>
+            <blockquote class="principle-quote">
+              "El mejor código es el que nunca se escribe. El segundo mejor es
+              el que se escribe cuando realmente se necesita."
+              <cite>— Extreme Programming</cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="impact-box reveal">
+          <div class="impact-header">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+              <path
+                d="M16 4v24M4 16h24"
+                stroke="url(#impactGrad)"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <defs>
+                <linearGradient
+                  id="impactGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" style="stop-color: #10b981" />
+                  <stop offset="100%" style="stop-color: #3b82f6" />
+                </linearGradient>
+              </defs>
+            </svg>
+            <h3>Impacto Combinado</h3>
+          </div>
+          <p>
+            Cuando KISS y YAGNI se aplican juntos, el resultado es exponencial:
+            código más limpio, equipos más ágiles y productos más confiables. La
+            simplicidad no es un objetivo, es un método de trabajo.
+          </p>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: CASE STUDY -->
+      <section class="slide" id="slide-2" aria-label="Caso de Estudio">
+        <div class="case-study-container">
+          <div class="section-header reveal">
+            <span class="section-tag">Caso Real</span>
+            <h2 class="section-title">Caso de Estudio: TechCorp Backend</h2>
+            <p class="section-subtitle">
+              Sistema con 15 microservicios y 8 capas de abstracción reducido
+              con KISS + YAGNI
+            </p>
+          </div>
+          <div class="comparison-grid">
+            <!-- BEFORE -->
+            <div class="case-card before reveal">
+              <h3 style="color: #ef4444">❌ ANTES: Over-Engineering</h3>
+              <p class="case-description">
+                Arquitectura hexagonal completa, 15 microservicios, 8 capas de
+                abstracción para un MVP.
+              </p>
+              <div class="code-block">
+                <span class="code-line"
+                  ><span class="comment"
+                    >// 200+ líneas de configuración</span
+                  ></span
+                >
+                <span class="code-line"
+                  ><span class="keyword">class</span>
+                  <span class="function">UserServiceFactoryProvider</span>
+                  {</span
+                >
+                <span class="code-line">
+                  <span class="keyword">async</span>
+                  <span class="function">createService</span>() {</span
+                >
+                <span class="code-line">
+                  <span class="keyword">const</span> adapter =
+                  <span class="keyword">await</span>
+                  <span class="keyword">this</span>.factory</span
+                >
+                <span class="code-line"> .getAdapter()</span>
+                <span class="code-line"> .getInstance()</span>
+                <span class="code-line"> .withDecorator()</span>
+                <span class="code-line"> .build();</span>
+                <span class="code-line">
+                  <span class="comment">// ... 50 líneas más ...</span></span
+                >
+                <span class="code-line"> }</span>
+                <span class="code-line">}</span>
+              </div>
+              <ul class="case-metrics">
+                <li>⏱️ <strong>Deploy:</strong> 2 horas</li>
+                <li>🐛 <strong>Bugs:</strong> 47/mes en producción</li>
+                <li>📦 <strong>Dependencias:</strong> 230+</li>
+                <li>👥 <strong>Onboarding:</strong> 3 semanas</li>
+              </ul>
+            </div>
+
+            <!-- AFTER -->
+            <div class="case-card after reveal">
+              <h3 style="color: var(--color-primary)">
+                ✅ DESPUÉS: KISS + YAGNI
+              </h3>
+              <p class="case-description">
+                Monolito modular simple, 3 capas lógicas, solo lo necesario para
+                el MVP funcional.
+              </p>
+              <div class="code-block">
+                <span class="code-line"
+                  ><span class="comment">// 30 líneas totales</span></span
+                >
+                <span class="code-line"
+                  ><span class="keyword">class</span>
+                  <span class="function">UserService</span> {</span
+                >
+                <span class="code-line">
+                  <span class="keyword">constructor</span>(db) {</span
+                >
+                <span class="code-line">
+                  <span class="keyword">this</span>.db = db;</span
+                >
+                <span class="code-line"> }</span>
+                <span class="code-line"></span>
+                <span class="code-line">
+                  <span class="keyword">async</span>
+                  <span class="function">getUser</span>(id) {</span
+                >
+                <span class="code-line">
+                  <span class="keyword">return</span>
+                  <span class="keyword">this</span>.db.users.findById(id);</span
+                >
+                <span class="code-line"> }</span>
+                <span class="code-line">}</span>
+              </div>
+              <ul class="case-metrics">
+                <li>⏱️ <strong>Deploy:</strong> 15 minutos</li>
+                <li>🐛 <strong>Bugs:</strong> 9/mes en producción</li>
+                <li>📦 <strong>Dependencias:</strong> 45</li>
+                <li>👥 <strong>Onboarding:</strong> 3 días</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: COMPARISON TABLE -->
+      <section class="slide" id="slide-3" aria-label="Tabla Comparativa">
+        <div class="section-header reveal">
+          <span class="section-tag">Datos</span>
+          <h2 class="section-title">Comparativa Detallada</h2>
+          <p class="section-subtitle">
+            Métricas reales del caso TechCorp antes y después de aplicar KISS +
+            YAGNI
+          </p>
+        </div>
+        <div class="comparison-table-wrapper reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>Métrica</th>
+                <th>Antes (Over-Engineering)</th>
+                <th>Después (KISS + YAGNI)</th>
+                <th>Mejora</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Líneas de Código</strong></td>
+                <td>45,000 líneas</td>
+                <td>12,500 líneas</td>
+                <td><span class="badge-success">↓ 72%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tiempo de Build</strong></td>
+                <td>18 minutos</td>
+                <td>3 minutos</td>
+                <td><span class="badge-success">↓ 83%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tiempo de Deploy</strong></td>
+                <td>2 horas</td>
+                <td>15 minutos</td>
+                <td><span class="badge-success">↓ 87%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Bugs en Producción</strong></td>
+                <td>47 bugs/mes</td>
+                <td>9 bugs/mes</td>
+                <td><span class="badge-success">↓ 81%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Cobertura de Tests</strong></td>
+                <td>42%</td>
+                <td>89%</td>
+                <td><span class="badge-success">↑ 112%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Consumo de RAM</strong></td>
+                <td>4.2 GB</td>
+                <td>800 MB</td>
+                <td><span class="badge-success">↓ 81%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tiempo de Onboarding</strong></td>
+                <td>3 semanas</td>
+                <td>3 días</td>
+                <td><span class="badge-success">↓ 86%</span></td>
+              </tr>
+              <tr>
+                <td><strong>Costo Infraestructura</strong></td>
+                <td>$8,500/mes</td>
+                <td>$2,100/mes</td>
+                <td><span class="badge-success">↓ 75%</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: SIMULATOR -->
+      <section class="slide" id="slide-4" aria-label="Laboratorio Interactivo">
+        <div class="simulator-container">
+          <div class="section-header reveal">
+            <span class="section-tag">Interactivo</span>
+            <h2 class="section-title">Laboratorio de Simulación</h2>
+            <p class="section-subtitle">
+              Compara en tiempo real la ejecución de un backend KISS vs uno
+              sobre-ingenierizado
+            </p>
+          </div>
+
+          <div class="simulator-controls reveal">
+            <button
+              class="sim-btn kiss"
+              onclick="runSimulation('kiss')"
+              aria-label="Ejecutar simulación KISS"
+            >
+              💎 Ejecutar con KISS
+            </button>
+            <button
+              class="sim-btn over"
+              onclick="runSimulation('over')"
+              aria-label="Ejecutar simulación Over-Engineering"
+            >
+              ⚠️ Ejecutar Over-Engineering
+            </button>
+          </div>
+
+          <div class="glass-card reveal">
+            <div
+              class="terminal"
+              id="terminal"
+              role="log"
+              aria-label="Terminal de simulación"
+              aria-live="polite"
+            >
+              <div class="terminal-header" aria-hidden="true">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+              </div>
+              <div id="terminalOutput">
+                <div class="log-line">
+                  <span class="log-time">[READY]</span>
+                  <span>Sistema listo. Selecciona un modo de ejecución.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: DASHBOARD -->
+      <section class="slide" id="slide-5" aria-label="Dashboard de Métricas">
+        <div class="section-header reveal">
+          <span class="section-tag">Analytics</span>
+          <h2 class="section-title">Dashboard de Métricas</h2>
+          <p class="section-subtitle">
+            Impacto cuantificado de aplicar KISS y YAGNI en el proyecto TechCorp
+          </p>
+        </div>
+        <div class="dashboard-grid">
+          <div class="chart-card reveal" data-chart>
+            <div class="chart-title">📊 Reducción de Complejidad</div>
+            <div class="bar-chart">
+              <div class="bar-item">
+                <div class="bar-label">Líneas</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="72">-72%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Clases</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="65">-65%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Archivos</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="58">-58%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Dependencias</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="80">-80%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card reveal" data-chart>
+            <div class="chart-title">⚡ Mejora de Performance</div>
+            <div class="bar-chart">
+              <div class="bar-item">
+                <div class="bar-label">Build</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="83">-83%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Deploy</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="87">-87%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Tests</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="76">-76%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Response</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="68">-68%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card reveal" data-chart>
+            <div class="chart-title">💰 Reducción de Costos</div>
+            <div class="bar-chart">
+              <div class="bar-item">
+                <div class="bar-label">Infraestructura</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="75">-75%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">RAM</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="81">-81%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">CPU</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="62">-62%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Storage</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="54">-54%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="chart-card reveal" data-chart>
+            <div class="chart-title">🎯 Calidad y Mantenibilidad</div>
+            <div class="bar-chart">
+              <div class="bar-item">
+                <div class="bar-label">Bugs</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="81">-81%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Hotfixes</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="70">-70%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Onboarding</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="86">-86%</div>
+                </div>
+              </div>
+              <div class="bar-item">
+                <div class="bar-label">Tech Debt</div>
+                <div class="bar-container">
+                  <div class="bar-fill" data-width="78">-78%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: ACADEMIC -->
+      <section class="slide" id="slide-6" aria-label="Evaluación Académica">
+        <div class="section-header reveal">
+          <span class="section-tag">Evaluación</span>
+          <h2 class="section-title">Criterios Académicos</h2>
+          <p class="section-subtitle">
+            Análisis del caso bajo los ejes de evaluación de la asignatura
+          </p>
+        </div>
+        <div class="academic-grid">
+          <div class="academic-card reveal">
+            <span class="academic-tag">01 · Claridad del Problema</span>
+            <p>
+              TechCorp identificó una necesidad real (gestión de espacios) pero
+              la enterró bajo capas de abstracción innecesarias, confundiendo
+              extensibilidad con utilidad inmediata.
+            </p>
+          </div>
+          <div class="academic-card reveal">
+            <span class="academic-tag">02 · Código y Modelo</span>
+            <p>
+              El modelo refactorizado KISS/YAGNI utiliza inyección de
+              dependencias simple y servicios directos, eliminando interfaces de
+              un solo uso y modelos anémicos complejos.
+            </p>
+          </div>
+          <div class="academic-card reveal">
+            <span class="academic-tag">03 · Aplicación de Principios</span>
+            <p>
+              Se aplicó YAGNI eliminando el 40% del código especulativo. KISS
+              permitió reducir la complejidad ciclomática de 18 a 4 puntos en
+              los servicios base.
+            </p>
+          </div>
+          <div class="academic-card reveal">
+            <span class="academic-tag">04 · Trade-offs y Retos</span>
+            <p>
+              Se sacrificó la "extensibilidad infinita" teórica a cambio de
+              mantenibilidad real y velocidad de despliegue 3.5x superior. El
+              reto principal fue la resistencia cultural al cambio hacia la
+              simplicidad.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: CHALLENGE -->
+      <section class="slide" id="slide-7" aria-label="Reto KISS & YAGNI">
+        <div class="section-header reveal">
+          <span class="section-tag">Reto en Clase</span>
+          <h2 class="section-title">KISS & YAGNI Challenge</h2>
+          <p class="section-subtitle">
+            Dinamica tipo quiz: elige la opcion correcta y explica por que
+          </p>
+        </div>
+
+        <div class="quiz-grid">
+          <article class="quiz-card reveal">
+            <div class="quiz-header">
+              <span class="quiz-badge">Pregunta 1</span>
+              <span class="quiz-points">100 pts</span>
+            </div>
+            <h3 class="quiz-question">
+              ¿Cual decision aplica mejor YAGNI en este caso?
+            </h3>
+            <ul class="quiz-options" role="list">
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: anticipar integraciones futuras agrega complejidad sin valor probado."
+                  type="button"
+                >
+                  A) Diseñar 5 integraciones futuras antes del primer release
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="true"
+                  data-feedback="Correcto: entregas lo necesario hoy y validas uso real antes de expandir."
+                  type="button"
+                >
+                  B) Implementar solo el reporte actual y medir uso real
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: un framework generico es trabajo especulativo sin requerimiento real."
+                  type="button"
+                >
+                  C) Crear un framework de reportes para cualquier dominio
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: la capa extra no resuelve un problema actual y aumenta la friccion."
+                  type="button"
+                >
+                  D) Agregar una capa extra de abstraccion "por si acaso"
+                </button>
+              </li>
+            </ul>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </article>
+
+          <article class="quiz-card reveal">
+            <div class="quiz-header">
+              <span class="quiz-badge">Pregunta 2</span>
+              <span class="quiz-points">150 pts</span>
+            </div>
+            <h3 class="quiz-question">
+              ¿Que indicador muestra que el equipo esta violando KISS?
+            </h3>
+            <ul class="quiz-options" role="list">
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: pocos endpoints y servicios sugiere simplicidad."
+                  type="button"
+                >
+                  A) 3 endpoints y 2 servicios principales
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: documentacion clara es senal de diseno simple."
+                  type="button"
+                >
+                  B) Documentacion simple y pruebas claras
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="true"
+                  data-feedback="Correcto: demasiadas capas e interfaces sin uso real es complejidad innecesaria."
+                  type="button"
+                >
+                  C) 12 capas, 18 interfaces y 4 factories sin uso real
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: pocas dependencias suele indicar un sistema mas simple."
+                  type="button"
+                >
+                  D) Menos de 10 dependencias en produccion
+                </button>
+              </li>
+            </ul>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </article>
+
+          <article class="quiz-card quiz-card--wide reveal">
+            <div class="quiz-header">
+              <span class="quiz-badge">Pregunta 3</span>
+              <span class="quiz-points">300 pts</span>
+            </div>
+            <h3 class="quiz-question">¿Cual es el codigo correcto?</h3>
+            <p class="quiz-prompt">
+              El caso TechCorp requiere un reporte basico. Selecciona la opcion
+              que respeta KISS y YAGNI.
+            </p>
+            <div class="quiz-code-block" aria-label="Codigo de ejemplo">
+              <pre><code>// Opcion A
+class ReportServiceFactory {
+  get(mode) {
+    return new ReportStrategyAdapter(mode);
+  }
+}
+
+// Opcion B
+function generateReport(data) {
+  return data.map(formatRow).join("\n");
+}
+</code></pre>
+            </div>
+            <ul class="quiz-options" role="list">
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: suma patrones sin necesidad y complica el flujo para un caso simple."
+                  type="button"
+                >
+                  A) Opcion A (factory + adapter + strategy)
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="true"
+                  data-feedback="Correcto: una funcion directa resuelve el problema con menos acoplamientos."
+                  type="button"
+                >
+                  B) Opcion B (funcion directa y clara)
+                </button>
+              </li>
+            </ul>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </article>
+
+          <article class="quiz-card reveal">
+            <div class="quiz-header">
+              <span class="quiz-badge">Pregunta 4</span>
+              <span class="quiz-points">200 pts</span>
+            </div>
+            <h3 class="quiz-question">
+              ¿Que decision mantiene KISS sin perder valor de negocio?
+            </h3>
+            <ul class="quiz-options" role="list">
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="true"
+                  data-feedback="Correcto: un solo flujo con validaciones claras reduce pasos y errores."
+                  type="button"
+                >
+                  A) Un solo flujo de reserva con validaciones simples
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: tres motores duplican logica antes de tener requerimientos reales."
+                  type="button"
+                >
+                  B) Tres motores de reserva segun perfil de usuario
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: capas extra agregan latencia y mantenimiento sin necesidad."
+                  type="button"
+                >
+                  C) Capa adicional de orquestacion para cada caso
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: mover a microservicios sin presion real aumenta complejidad."
+                  type="button"
+                >
+                  D) Separar todo en microservicios desde el inicio
+                </button>
+              </li>
+            </ul>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </article>
+
+          <article class="quiz-card reveal">
+            <div class="quiz-header">
+              <span class="quiz-badge">Pregunta 5</span>
+              <span class="quiz-points">250 pts</span>
+            </div>
+            <h3 class="quiz-question">
+              ¿Que funcionalidad deberia postergarse segun YAGNI?
+            </h3>
+            <ul class="quiz-options" role="list">
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: los reportes actuales son el valor principal del MVP."
+                  type="button"
+                >
+                  A) Reporte mensual actual de ocupacion
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="true"
+                  data-feedback="Correcto: integraciones futuras sin demanda confirmada son especulativas."
+                  type="button"
+                >
+                  B) Integracion con 5 sistemas externos no solicitados
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: notificaciones basicas mejoran la experiencia actual."
+                  type="button"
+                >
+                  C) Alertas basicas cuando la sala esta disponible
+                </button>
+              </li>
+              <li>
+                <button
+                  class="quiz-option"
+                  data-correct="false"
+                  data-feedback="Incorrecto: exportar CSV es una necesidad inmediata del usuario."
+                  type="button"
+                >
+                  D) Exportar reportes en CSV para el area administrativa
+                </button>
+              </li>
+            </ul>
+            <div class="quiz-feedback" aria-live="polite"></div>
+          </article>
+        </div>
+
+        <div class="quiz-footer reveal">
+          <strong>Tip:</strong> Justifica tu eleccion con un argumento tecnico
+          claro y medible.
+        </div>
+      </section>
+
+      <!-- SLIDE 8: TEAM & CONCLUSIONS -->
+      <section class="slide" id="slide-8" aria-label="Equipo y Conclusiones">
+        <h2 class="reveal" style="text-align: center; margin-bottom: 2rem">
+          Equipo de Trabajo · Grupo 3
+        </h2>
+
+        <div class="team-grid reveal">
+          <div class="team-card">
+            <div class="team-avatar">JJ</div>
+            <div class="team-name">Jaramillo Laurens Jhon Dayron</div>
+            <div class="team-email">jhonjaramillo120326@correo.itm.edu.co</div>
+            <div class="team-role">Desarrollo & Investigación</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">AM</div>
+            <div class="team-name">Meneses Calderon Angie Paola</div>
+            <div class="team-email">angiemeneses271066@correo.itm.edu.co</div>
+            <div class="team-role">Análisis & Documentación</div>
+          </div>
+          <div class="team-card">
+            <div class="team-avatar">LZ</div>
+            <div class="team-name">Zapata Castaño Luis Fernando</div>
+            <div class="team-email">luiszapata73404@correo.itm.edu.co</div>
+            <div class="team-role">Diseño & Presentación</div>
+          </div>
+        </div>
+
+        <h2 class="reveal" style="text-align: center; margin: 2rem 0 1.5rem">
+          Conclusiones Clave
+        </h2>
+
+        <ul class="conclusions-list reveal">
+          <li>
+            <strong>🎯 Simplicidad como Ventaja Competitiva:</strong>
+            El código simple se mantiene, escala y evoluciona mejor que sistemas
+            complejos.
+          </li>
+          <li>
+            <strong>💰 ROI Inmediato:</strong>
+            Reducción de 75% en costos de infraestructura y 86% en tiempo de
+            onboarding.
+          </li>
+          <li>
+            <strong>⚡ Velocidad de Desarrollo:</strong>
+            Deploy 8x más rápido permite iteraciones más frecuentes y feedback
+            temprano.
+          </li>
+          <li>
+            <strong>🛡️ Calidad Superior:</strong>
+            81% menos bugs en producción gracias a menor superficie de ataque.
+          </li>
+          <li>
+            <strong>🚀 Adopción Gradual:</strong>
+            KISS y YAGNI son aplicables incrementalmente sin reescribir todo el
+            sistema.
+          </li>
+        </ul>
+
+        <div class="glass-card final-card reveal">
+          <h3>Conclusión Estratégica</h3>
+          <p
+            style="
+              color: var(--text-muted);
+              margin-top: 0.75rem;
+              line-height: 1.8;
+            "
+          >
+            La aplicación de KISS y YAGNI no es solo una elección técnica, sino
+            una decisión estratégica que garantiza la sostenibilidad del
+            software a largo plazo, permitiendo que el equipo se enfoque en el
+            valor real del negocio hoy y no en suposiciones del mañana.
+          </p>
+        </div>
+
+        <div class="footer-info reveal">
+          <strong>INSTITUTO TECNOLÓGICO METROPOLITANO</strong><br />
+          Facultad de Ingenierías · Arquitectura de Software I<br />
+          Docente: Johnathan Mauricio Calle Gallego · 2026
+        </div>
+      </section>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
